@@ -3,7 +3,3 @@ jdk:
   - openjdk8
 before_install:
   - chmod +x mvnw
-spring:
-  flyway:
-    baselineOnMigrate: true
-    validateOnMigrate: false
