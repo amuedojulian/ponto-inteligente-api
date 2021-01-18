@@ -43,8 +43,7 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
     `data_criacao` datetime NOT NULL,
     `data_atualizacao` datetime NOT NULL,
     `empresa_id` bigint(20) DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    KEY `empresa_id` (`empresa_id`)
+    PRIMARY KEY (`id`)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -63,8 +62,11 @@ CREATE TABLE IF NOT EXISTS `lancamento` (
     `data_atualizacao` datetime NOT NULL,
     `tipo` varchar(255) NOT NULL,
     `funcionario_id` bigint(20) NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `funcionario_id` (`funcionario_id`)
+    PRIMARY KEY (`id`)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 COMMIT;
 
+
+ALTER TABLE funcionario ADD FOREIGN KEY (empresa_id) REFERENCES empresa(id);
+
+ALTER TABLE lancamento ADD FOREIGN KEY (funcionario_id) REFERENCES funcionario(id);
