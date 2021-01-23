@@ -1,5 +1,4 @@
 package com.pontointeligente.pontointeligente.repository;
-
 import com.pontointeligente.pontointeligente.model.Empressa;
 import org.junit.After;
 import org.junit.Assert;
