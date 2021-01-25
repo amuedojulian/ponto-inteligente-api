@@ -3,6 +3,7 @@ package com.pontointeligente.pontointeligente.repository;
 import com.pontointeligente.pontointeligente.enums.PerfilEnum;
 import com.pontointeligente.pontointeligente.model.Empressa;
 import com.pontointeligente.pontointeligente.model.Funcionario;
+import com.pontointeligente.pontointeligente.utils.PasswordsUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -68,7 +69,7 @@ public class FuncionarioRepositoryTest {
         Funcionario funcionario = new Funcionario();
         funcionario.setNome("Fulano de Tal");
         funcionario.setPerfil(PerfilEnum.ROLE_USUARIO);
-        funcionario.setSenha("123456");
+        funcionario.setSenha(PasswordsUtils.gerarBCrypt("123456"));
         funcionario.setCpf(CPF);
         funcionario.setEmail(EMAIL);
         funcionario.setEmpresa(empressa);
