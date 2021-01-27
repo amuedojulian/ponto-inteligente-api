@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `funcionario` (
     `id` int(10) NOT NULL AUTO_INCREMENT,
     `nome` varchar(255) NOT NULL,
     `email` varchar(255) NOT NULL,
-    `senha` bigint(20) NOT NULL,
+    `senha` varchar(255) NOT NULL,
     `cpf` varchar(255) NOT NULL,
     `valor_hora` decimal(19,2) DEFAULT NULL,
     `qtd_horas_trabalho_dia` float DEFAULT NULL,

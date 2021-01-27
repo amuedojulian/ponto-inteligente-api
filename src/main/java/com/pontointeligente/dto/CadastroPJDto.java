@@ -2,6 +2,7 @@ package com.pontointeligente.dto;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -56,7 +57,7 @@ public class CadastroPJDto {
     }
 
     @NotEmpty(message = "CPF nao pode ser vazio")
-    @CNPJ(message= "CNPJ inválido")
+    @CPF(message= "CPF inválido")
     public String getCpf() {
         return cpf;
     }
