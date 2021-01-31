@@ -45,7 +45,7 @@ public class FuncionarioServiceTest {
 
     @Test
     public void testBuscarEmpressaPorId() {
-        Optional<Optional<Funcionario>> funcionario = this.funcionarioService.buscarPorId(1L);
+        Optional<Funcionario> funcionario = this.funcionarioService.buscarPorId(1L);
         Assert.assertTrue(funcionario.isPresent());
     }
 
