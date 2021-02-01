@@ -25,9 +25,9 @@ public class LancamentoServiceImpl implements LancamentoService {
         return this.lancamentoRepository.findByFuncionarioId(funcionarioId, pageRequest);
     }
 
-    public Optional<Optional<Lancamento>> buscarPorId(Long id) {
+    public Optional<Lancamento> buscarPorId(Long id) {
         log.info("Buscando um lcancamento pelo Id: {}", id);
-        return Optional.ofNullable(this.lancamentoRepository.findById(id));
+        return this.lancamentoRepository.findById(id);
     }
 
     public Lancamento persistir(Lancamento lancamento) {
