@@ -9,7 +9,7 @@ public class LancamentoDto {
     private String data;
     private String tipo;
     private String descricao;
-    private String localizacao;
+    private String localicacao;
     private Long funcionarioId;
 
     public LancamentoDto(){
@@ -48,12 +48,12 @@ public class LancamentoDto {
         this.descricao = descricao;
     }
 
-    public String getLocalizacao() {
-        return localizacao;
+    public String getLocalicacao() {
+        return localicacao;
     }
 
-    public void setLocalizacao(String localizacao) {
-        this.localizacao = localizacao;
+    public void setLocalicacao(String localicacao) {
+        this.localicacao = localicacao;
     }
 
     public Long getFuncionarioId() {
@@ -71,7 +71,7 @@ public class LancamentoDto {
                 ", data='" + data + '\'' +
                 ", tipo='" + tipo + '\'' +
                 ", descricao='" + descricao + '\'' +
-                ", localizacao='" + localizacao + '\'' +
+                ", localicacao='" + localicacao + '\'' +
                 ", funcionarioId=" + funcionarioId +
                 '}';
     }

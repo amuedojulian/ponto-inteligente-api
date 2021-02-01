@@ -1,14 +1,12 @@
 package com.pontointeligente.controller;
 
 import com.pontointeligente.dto.LancamentoDto;
-import com.pontointeligente.enums.PerfilEnum;
 import com.pontointeligente.enums.TipoEnum;
 import com.pontointeligente.model.Funcionario;
 import com.pontointeligente.model.Lancamento;
 import com.pontointeligente.response.Response;
 import com.pontointeligente.services.FuncionarioService;
 import com.pontointeligente.services.LancamentoService;
-import com.pontointeligente.utils.PasswordsUtils;
 import org.apache.commons.lang3.EnumUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,15 +16,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.Valid;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
@@ -202,7 +196,7 @@ public class LancamentoController {
         lancamentoDto.setData(this.dateFormat.format(lancamento.getDate()));
         lancamentoDto.setTipo(lancamento.getTipo().toString());
         lancamentoDto.setDescricao(lancamento.getDescricao());
-        lancamentoDto.setLocalizacao(lancamento.getLocalicacao());
+        lancamentoDto.setLocalicacao(lancamento.getLocalicacao());
         lancamentoDto.setFuncionarioId(lancamento.getFuncionario().getId());
 
         return lancamentoDto;
@@ -232,7 +226,7 @@ public class LancamentoController {
         }
 
         lancamento.setDescricao(lancamentoDto.getDescricao());
-        lancamento.setLocalicacao(lancamento.getLocalicacao());
+        lancamento.setLocalicacao(lancamentoDto.getLocalicacao());
         lancamento.setDate(this.dateFormat.parse(lancamentoDto.getData()));
 
         if (EnumUtils.isValidEnum(TipoEnum.class, lancamentoDto.getTipo())) {
