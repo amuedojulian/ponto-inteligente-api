@@ -6,6 +6,8 @@ import com.pontointeligente.services.LancamentoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,11 +27,13 @@ public class LancamentoServiceImpl implements LancamentoService {
         return this.lancamentoRepository.findByFuncionarioId(funcionarioId, pageRequest);
     }
 
+    @Cacheable(value = "lancamentoPorId", key = "#id")
     public Optional<Lancamento> buscarPorId(Long id) {
         log.info("Buscando um lcancamento pelo Id: {}", id);
         return this.lancamentoRepository.findById(id);
     }
 
+    @CachePut(value = "lancamentoPorId", key = "#id")
     public Lancamento persistir(Lancamento lancamento) {
         log.info("Persisitndo o lancamento {}", lancamento);
         return this.lancamentoRepository.save(lancamento);

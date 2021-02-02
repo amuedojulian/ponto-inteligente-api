@@ -8,15 +8,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.ApiKeyVehicle;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Configuration
 @Profile("dev")
@@ -30,19 +34,46 @@ public class SwaggerConfig {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.pontointeligente.controller"))
-				.paths(PathSelectors.any()).build()
-				.apiInfo(apiInfo());
+	private ApiKey apiKey() {
+		return new ApiKey("JWT", "Authorization", "header");
 	}
 
-	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("Ponto Inteligente API")
-				.description("Documentação da API de acesso aos endpoints do Ponto Inteligente.").version("1.0")
+	private SecurityContext securityContext() {
+		return SecurityContext.builder().securityReferences(defaultAuth()).build();
+	}
+
+	private List<SecurityReference> defaultAuth() {
+		AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+		AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+		authorizationScopes[0] = authorizationScope;
+		return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
+	}
+
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.apiInfo(apiInfo())
+				.securityContexts(Arrays.asList(securityContext()))
+				.securitySchemes(Arrays.asList(apiKey()))
+				.select()
+				.apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any())
 				.build();
 	}
+
+
+	private ApiInfo apiInfo() {
+		return new ApiInfo(
+				"Ponto Inteligente API.",
+				"Documentação da API de acesso aos endpoints do Ponto Inteligente.",
+				"1.0",
+				"Terms of service",
+				new Contact("Julián Amuedo", "https://www.linkedin.com/in/julián-amuedo-franzoni-51330416a/", "amuedojulian05j@gmail.com"),
+				"License of API",
+				"API license URL",
+				Collections.emptyList());
+	}
+
 
 	@Bean
 	public SecurityConfiguration security() {
@@ -50,6 +81,7 @@ public class SwaggerConfig {
 		try {
 			UserDetails userDetails = this.userDetailsService.loadUserByUsername("amuedojulian05@gmail.com");
 			token = this.jwtTokenUtil.obterToken(userDetails);
+			System.out.println(token);
 		} catch (Exception e) {
 			token = "";
 		}
